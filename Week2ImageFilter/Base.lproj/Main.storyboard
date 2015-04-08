@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2Nh-it-soz">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--Item-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="PhotoViewController" customModule="Week2ImageFilter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_0209.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="NXT-EA-ttv">
+                                <rect key="frame" x="60" y="28" width="480" height="480"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8p1-wx-7z6">
+                                <rect key="frame" x="279" y="516" width="43" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="editButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ms3-He-7zS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NXT-EA-ttv" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="Elu-bO-piV"/>
+                            <constraint firstAttribute="centerY" secondItem="NXT-EA-ttv" secondAttribute="centerY" id="HJ4-Xu-kNq"/>
+                            <constraint firstItem="NXT-EA-ttv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="O85-eF-BaW"/>
+                            <constraint firstItem="8p1-wx-7z6" firstAttribute="top" secondItem="NXT-EA-ttv" secondAttribute="bottom" constant="8" symbolic="YES" id="T0U-xe-vCb"/>
+                            <constraint firstAttribute="centerX" secondItem="8p1-wx-7z6" secondAttribute="centerX" id="b2B-r8-HO9"/>
+                            <constraint firstItem="NXT-EA-ttv" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" id="cX7-Md-6NI"/>
+                            <constraint firstAttribute="centerX" secondItem="NXT-EA-ttv" secondAttribute="centerX" id="dRV-og-mjD"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="8p1-wx-7z6" secondAttribute="bottom" id="sPC-Bf-CRw"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="HJ4-Xu-kNq"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="pI9-ZX-hh4"/>
+                    <connections>
+                        <outlet property="mainImageView" destination="NXT-EA-ttv" id="hjc-US-TEt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1126" y="256"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="bIr-qh-tdt">
+            <objects>
+                <viewController id="JcV-Ws-fTH" customClass="TimelineViewController" customModule="Week2ImageFilter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v9n-WZ-cea"/>
+                        <viewControllerLayoutGuide type="bottom" id="1Nd-Ga-oU7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dBk-u9-k92">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="tSP-pq-e7d"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qkb-XN-BFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1126" y="994"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="hiq-X4-nWH">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="2Nh-it-soz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="St8-Px-nz5">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="30G-Og-TZf"/>
+                        <segue destination="JcV-Ws-fTH" kind="relationship" relationship="viewControllers" id="IRa-Hn-QcW"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ji-QO-znb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="314" y="256"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="IMG_0209.jpg" width="1200" height="1600"/>
+    </resources>
+</document>
