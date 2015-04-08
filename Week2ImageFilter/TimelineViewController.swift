@@ -12,15 +12,16 @@ class TimelineViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = "Timeline"
     retrievePhotos()
   }
 
   func retrievePhotos() {
     let query = PFQuery(className: "Post")
-    query.findObjectsInBackgroundWithBlock { ([AnyObject]!, error) -> Void in
+    query.findObjectsInBackgroundWithBlock {(data, error) -> Void in
       if error != nil {
         println(error.localizedDescription)
+      } else {
+        println(data.count)
       }
     }
   }

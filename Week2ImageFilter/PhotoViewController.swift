@@ -17,11 +17,22 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = "Photo Editor"
+    initializeTabBarTitles()
     self.view.backgroundColor = UIColor.blackColor()
     initializeAlertActions()
   }
 
+  func initializeTabBarTitles() {
+    self.title = "Photo Editor"
+    if let viewControllers = self.tabBarController?.viewControllers {
+      for vc in viewControllers {
+        if let timeLineVC = vc as? TimelineViewController {
+          timeLineVC.title = "Timeline"
+        }
+      }
+    }
+  }
+  
   func initializeAlertActions() {
     
     if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
