@@ -11,58 +11,36 @@ import CoreImage
 
 class ImageFilterService {
   
-  class func exposureAdjust(input: UIImage) -> UIImage {
-    
-    let ciImage = CIImage(image: input)
+  class func exposureAdjust(input: UIImage, context: CIContext) -> UIImage {
     let filter = CIFilter(name: "CIExposureAdjust")
     filter.setDefaults()
-    filter.setValue(ciImage, forKey: kCIInputImageKey)
     filter.setValue(1.0, forKey: "inputEV")
-    
-    let resultImage = filter.valueForKey(kCIOutputImageKey) as CIImage
-    let options = [kCIContextWorkingColorSpace : NSNull()]
-    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-    let context = CIContext(EAGLContext: eaglContext, options: options)
-    
-    let resultRef = context.createCGImage(resultImage, fromRect: resultImage.extent())
-    return UIImage(CGImage: resultRef)!
+    return self.filterImage(input, filter: filter, context: context)
   }
   
-  class func colorInvert(input: UIImage) -> UIImage {
-    
-    let ciImage = CIImage(image: input)
+  class func colorInvert(input: UIImage, context: CIContext) -> UIImage {
     let filter = CIFilter(name: "CIColorInvert")
     filter.setDefaults()
-    filter.setValue(ciImage, forKey: kCIInputImageKey)
+    return self.filterImage(input, filter: filter, context: context)
+  }
+  
+  class func bumpDistortion(input: UIImage, context: CIContext) -> UIImage {
+    let filter = CIFilter(name: "CIBumpDistortion")
+    let inputCenter = CIVector(x: input.size.width/2, y: input.size.height/2)
+    filter.setDefaults()
+    filter.setValue(2.0, forKey: "inputScale")
+    filter.setValue(inputCenter, forKey: "inputCenter")
+    return self.filterImage(input, filter: filter, context: context)
+  }
     
-    let resultImage = filter.valueForKey(kCIOutputImageKey) as CIImage
-    let options = [kCIContextWorkingColorSpace : NSNull()]
-    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-    let context = CIContext(EAGLContext: eaglContext, options: options)
-    let resultRef = context.createCGImage(resultImage, fromRect: resultImage.extent())
+  private class func filterImage(originalImage : UIImage, filter : CIFilter, context : CIContext) -> UIImage {
+    
+    let image = CIImage(image: originalImage)
+    filter.setValue(image, forKey: kCIInputImageKey)
+    let result = filter.valueForKey(kCIOutputImageKey) as CIImage
+    let resultRef = context.createCGImage(result, fromRect: result.extent())
     return UIImage(CGImage: resultRef)!
   }
   
-  class func bumpDistortion(input: UIImageView) -> UIImage {
-    
-    let ciImage = CIImage(image: input.image)
-    let filter = CIFilter(name: "CIBumpDistortion")
-    let inputCenter = CIVector(x: input.center.x, y: input.center.y)
-    filter.setDefaults()
-    filter.setValue(ciImage, forKey: kCIInputImageKey)
-    filter.setValue(2.0, forKey: "inputScale")
-    filter.setValue(inputCenter, forKey: "inputCenter")
-
-    let resultImage = filter.valueForKey(kCIOutputImageKey) as CIImage
-    let options = [kCIContextWorkingColorSpace : NSNull()]
-    let eaglContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-    let context = CIContext(EAGLContext: eaglContext, options: options)
-    let resultRef = context.createCGImage(resultImage, fromRect: resultImage.extent())
-    if resultRef != nil {
-      return UIImage(CGImage: resultRef)!
-    } else {
-      println("Could not add Bump Distortion")
-      return input.image!
-    }
-  }
+  
 }

@@ -36,6 +36,7 @@
 		CECDEC651AD4EB4B00272977 /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDEC641AD4EB4B00272977 /* ImageResizer.swift */; };
 		CECDEC671AD4EB8200272977 /* ParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDEC661AD4EB8200272977 /* ParseService.swift */; };
 		CECDEC691AD4F00C00272977 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDEC681AD4F00C00272977 /* TimelineViewController.swift */; };
+		CECDEC6B1AD6088200272977 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDEC6A1AD6088200272977 /* ImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		CECDEC641AD4EB4B00272977 /* ImageResizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
 		CECDEC661AD4EB8200272977 /* ParseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseService.swift; path = ../ParseService.swift; sourceTree = "<group>"; };
 		CECDEC681AD4F00C00272977 /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		CECDEC6A1AD6088200272977 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 		CECDEC5F1AD4E35500272977 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CECDEC6A1AD6088200272977 /* ImageCell.swift */,
 				CEC7CF541AD327AB0048522C /* LaunchScreen.xib */,
 				CEC7CF521AD327AB0048522C /* Images.xcassets */,
 				CECDEC621AD4E73E00272977 /* IMG_0209.jpg */,
@@ -338,6 +341,7 @@
 				CEC7CF4C1AD327AB0048522C /* AppDelegate.swift in Sources */,
 				CECDEC651AD4EB4B00272977 /* ImageResizer.swift in Sources */,
 				CECDEC691AD4F00C00272977 /* TimelineViewController.swift in Sources */,
+				CECDEC6B1AD6088200272977 /* ImageCell.swift in Sources */,
 				CEC7CF6C1AD4466A0048522C /* PhotoViewController.swift in Sources */,
 				CECDEC611AD4E37300272977 /* Constants.swift in Sources */,
 			);
