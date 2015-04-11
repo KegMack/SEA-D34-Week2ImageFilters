@@ -37,6 +37,9 @@
 		CECDEC671AD4EB8200272977 /* ParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDEC661AD4EB8200272977 /* ParseService.swift */; };
 		CECDEC691AD4F00C00272977 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDEC681AD4F00C00272977 /* TimelineViewController.swift */; };
 		CECDEC6B1AD6088200272977 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDEC6A1AD6088200272977 /* ImageCell.swift */; };
+		CED8C2C11AD8A0C40080A908 /* SizeScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED8C2C01AD8A0C40080A908 /* SizeScaler.swift */; };
+		CEE2A5A31AD791080024672A /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2A5A21AD791080024672A /* GalleryViewController.swift */; };
+		CEE2A5A51AD791D40024672A /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2A5A41AD791D40024672A /* GalleryCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		CECDEC661AD4EB8200272977 /* ParseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseService.swift; path = ../ParseService.swift; sourceTree = "<group>"; };
 		CECDEC681AD4F00C00272977 /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		CECDEC6A1AD6088200272977 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		CED8C2C01AD8A0C40080A908 /* SizeScaler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeScaler.swift; sourceTree = "<group>"; };
+		CEE2A5A21AD791080024672A /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		CEE2A5A41AD791D40024672A /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +203,7 @@
 			children = (
 				CEC7CF6B1AD4466A0048522C /* PhotoViewController.swift */,
 				CECDEC681AD4F00C00272977 /* TimelineViewController.swift */,
+				CEE2A5A21AD791080024672A /* GalleryViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -204,6 +211,7 @@
 		CEC7CF701AD44D520048522C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CED8C2C01AD8A0C40080A908 /* SizeScaler.swift */,
 				CECDEC661AD4EB8200272977 /* ParseService.swift */,
 				CECDEC641AD4EB4B00272977 /* ImageResizer.swift */,
 				CEC7CF6E1AD44D4C0048522C /* ImageFilterService.swift */,
@@ -228,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				CECDEC6A1AD6088200272977 /* ImageCell.swift */,
+				CEE2A5A41AD791D40024672A /* GalleryCollectionViewCell.swift */,
 				CEC7CF541AD327AB0048522C /* LaunchScreen.xib */,
 				CEC7CF521AD327AB0048522C /* Images.xcassets */,
 				CECDEC621AD4E73E00272977 /* IMG_0209.jpg */,
@@ -337,11 +346,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC7CF6F1AD44D4C0048522C /* ImageFilterService.swift in Sources */,
+				CEE2A5A51AD791D40024672A /* GalleryCollectionViewCell.swift in Sources */,
+				CED8C2C11AD8A0C40080A908 /* SizeScaler.swift in Sources */,
 				CECDEC671AD4EB8200272977 /* ParseService.swift in Sources */,
 				CEC7CF4C1AD327AB0048522C /* AppDelegate.swift in Sources */,
 				CECDEC651AD4EB4B00272977 /* ImageResizer.swift in Sources */,
 				CECDEC691AD4F00C00272977 /* TimelineViewController.swift in Sources */,
 				CECDEC6B1AD6088200272977 /* ImageCell.swift in Sources */,
+				CEE2A5A31AD791080024672A /* GalleryViewController.swift in Sources */,
 				CEC7CF6C1AD4466A0048522C /* PhotoViewController.swift in Sources */,
 				CECDEC611AD4E37300272977 /* Constants.swift in Sources */,
 			);

@@ -8,7 +8,8 @@
 
 import UIKit
 
-class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource {
+class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, ImageSelectedFromGalleryVC
+{
 
   //MARK: View Outlets
   
@@ -48,7 +49,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     initializeConstraints()
     initializeContext()
     initializeAlertActions()
-    self.filters = [ImageFilterService.exposureAdjust, ImageFilterService.colorInvert, ImageFilterService.bumpDistortion]
+    self.filters = [ImageFilterService.exposureAdjust, ImageFilterService.colorInvert, ImageFilterService.bumpDistortion, ImageFilterService.hatchedScreen, ImageFilterService.sharpenLuminance, ImageFilterService.pixellate, ImageFilterService.lightTunnel, ImageFilterService.circleSplash]
     self.currentImage = UIImage(named: "IMG_0209.jpg")
 
   }
@@ -95,43 +96,30 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
       })
       self.alertController.addAction(cameraAction)
     }
-   /* let exposureAdjustAction = UIAlertAction(title: "Exposure Adjust", style: UIAlertActionStyle.Default) { (action) -> Void in
-      if let image = self.mainImageView.image {
-        let exposureAdjustedImage = ImageFilterService.exposureAdjust(image, context: self.context)
-        self.mainImageView.image = exposureAdjustedImage
-      }
-    }
-    let colorInvertAction = UIAlertAction(title: "Invert Color", style: UIAlertActionStyle.Default) { (action) -> Void in
-      if let image = self.mainImageView.image {
-        let adjustedImage = ImageFilterService.colorInvert(image, context: self.context)
-        self.mainImageView.image = adjustedImage
-      }
-    }
-    let bumpDistortionAction = UIAlertAction(title: "Bump Distortion", style: UIAlertActionStyle.Default) { (action) -> Void in
-      if let image = self.mainImageView.image {
-        let adjustedImage = ImageFilterService.bumpDistortion(image, context: self.context)
-        self.mainImageView.image = adjustedImage
-      }
-    }*/
+    
     let filterAction = UIAlertAction(title: "Filters", style: UIAlertActionStyle.Default) { [weak self] (action) -> Void in
       if self != nil {
         self!.enterFilterMode()
       }
     }
     let uploadAction = UIAlertAction(title: "Upload Image", style: UIAlertActionStyle.Default) { (action) -> Void in
-      if let image = self.mainImageView.image {
+      if let image = self.currentImage {
         let resizedImage = ImageResizer.resizeImage(image, size: self.imageUploadSize)
         ParseService.uploadImage(resizedImage, completionHandler: { (completionString) -> Void in
           println(completionString)
         })
       }
     }
-    
+    let galleryAction = UIAlertAction(title: "My Photos", style: UIAlertActionStyle.Default) { (action) -> Void in
+      self.performSegueWithIdentifier("gallerySegue", sender: self)
+    }
+    let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+
+    self.alertController.addAction(galleryAction)
     self.alertController.addAction(uploadAction)
     self.alertController.addAction(filterAction)
-//    self.alertController.addAction(exposureAdjustAction)
-//    self.alertController.addAction(colorInvertAction)
-//    self.alertController.addAction(bumpDistortionAction)
+    self.alertController.addAction(cancelAction)
+    
   }
   
   
@@ -143,16 +131,15 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
         popoverController.sourceRect = button.bounds
       }
     }
-    self.presentViewController(alertController, animated: true) { () -> Void in
-    }
+    self.presentViewController(alertController, animated: true, completion: nil)
   }
+  
   
   //MARK: Filter Mode Functions
   
   func enterFilterMode() {
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "exitFilterMode")
     self.editButton.enabled = false
-    // self.mainImageTopConstraint.constant += self.view.frame.height
     self.collectionViewBottomConstraint.constant = 0
     UIView.animateWithDuration(self.filterModeAnimationDuration, animations: { () -> Void in
       self.view.layoutIfNeeded()
@@ -162,42 +149,58 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   func exitFilterMode() {
     self.navigationItem.rightBarButtonItem = nil
     self.editButton.enabled = true
-    // self.mainImageTopConstraint.constant = self.originalMainImageViewTopConstraintConstant
     self.collectionViewBottomConstraint.constant = -(self.view.frame.height-self.editButton.frame.height) - self.collectionView.frame.height
     UIView.animateWithDuration(self.filterModeAnimationDuration, animations: { () -> Void in
       self.view.layoutIfNeeded()
     })
   }
   
+  
   //MARK: UIImagePickerControllerDelegate
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
     if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-      self.mainImageView.image = editedImage
+      self.currentImage = editedImage
     }
-    
     picker.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-   self.mainImageView.image = image 
-  }
-  
 
-  //MARK: UICollectionViewDataSource
+  //MARK: UICollectionViewDelegation
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return self.filters.count
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("imageCell", forIndexPath: indexPath) as ImageCell
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("imageCell", forIndexPath: indexPath) as! ImageCell
     let filter = self.filters[indexPath.row]
     cell.imageView.image = filter(self.originalThumbnail, self.context)
     return cell
   }
   
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    let filter = self.filters[indexPath.row]
+    self.currentImage = filter(self.currentImage, self.context)
+  }
   
   
+  //MARK: ImageSelectedFromGalleryVC Protocol
+  
+  func didSelectImage(image: UIImage) {
+    self.currentImage = image
+  }
+  
+  
+  //MARK: Prepare For Segue
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "gallerySegue" {
+      if let galleryVC = segue.destinationViewController as? GalleryViewController {
+        galleryVC.delegate = self
+        galleryVC.mainImageSize = self.mainImageView.frame.size
+      }
+    }
+  }
   
 }
