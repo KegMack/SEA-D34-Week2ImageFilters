@@ -78,21 +78,25 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   
   func initializeAlertActions() {
     
-    if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-      let photoAction = UIAlertAction(title: "New Photo", style: UIAlertActionStyle.Default) { (action) -> Void in
-        
+//    if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+//      let photoAction = UIAlertAction(title: "New Photo", style: UIAlertActionStyle.Default) { (action) -> Void in
+//        
+//        let imagePickerController = UIImagePickerController()
+//        imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+//        imagePickerController.allowsEditing = true
+//        self.presentViewController(imagePickerController, animated: true, completion: nil)
+//        imagePickerController.delegate = self
+//      }
+//      self.alertController.addAction(photoAction)
+//    }
+    
+    if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+      let cameraAction = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
         let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
         imagePickerController.allowsEditing = true
         self.presentViewController(imagePickerController, animated: true, completion: nil)
         imagePickerController.delegate = self
-      }
-      self.alertController.addAction(photoAction)
-    }
-    
-    if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-      let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-        //add camera stuff
       })
       self.alertController.addAction(cameraAction)
     }
