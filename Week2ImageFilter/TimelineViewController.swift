@@ -12,7 +12,7 @@ import UIKit
 class TimelineViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
   @IBOutlet weak var collectionView: UICollectionView!
 
-  var photos: [UIImage]!
+  var photoFileObjects = [PFObject]()
   var mainImageSize: CGSize?
   var flowLayout: UICollectionViewFlowLayout!
   let minimumCellDimension: CGFloat = 25
@@ -21,7 +21,6 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.photos = [UIImage]()
     self.flowLayout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
     let pinch = UIPinchGestureRecognizer(target: self, action: "pinchRecognized:")
     self.collectionView.addGestureRecognizer(pinch)
@@ -30,32 +29,34 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    retrievePhotos()
-  }
-
-  func retrievePhotos() {
-    ParseService.fetchImages({ (data, error) -> Void in
-      if let images = data {
-        self.photos = images
+    ParseService.fetchImageFiles({ (data, error) -> Void in
+      if let pfObjects = data  {
+        self.photoFileObjects = pfObjects
         self.collectionView.reloadData()
+      } else {
+        println(error)
       }
     })
   }
-  
+
   
   //MARK: UICollectionViewDelegation
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return self.photos.count
+    return self.photoFileObjects.count
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("timelineCell", forIndexPath: indexPath) as! GalleryCollectionViewCell
-    cell.imageView.image = self.photos[indexPath.row]
+    cell.tag++
+    let tag = cell.tag
+    ParseService.fetchImageFromPFObject(self.photoFileObjects[indexPath.row], completionHandler: { (image, error) -> Void in
+      if let cellImage = image where cell.tag == tag {
+        cell.imageView.image = image
+      }
+    })
     return cell
   }
-  
-
   
   //MARK: Gesture Recognizers
   func pinchRecognized(gesture: UIPinchGestureRecognizer) {

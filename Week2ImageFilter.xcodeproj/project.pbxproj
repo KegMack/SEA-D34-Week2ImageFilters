@@ -288,7 +288,7 @@
 		CEC7CF3E1AD327AB0048522C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Craig_Chaillie;
 				TargetAttributes = {
 					CEC7CF451AD327AB0048522C = {

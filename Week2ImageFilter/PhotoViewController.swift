@@ -78,6 +78,8 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
   
   func initializeAlertActions() {
     
+    ////  REMOVED PHOTOLIBRARY FUNCTION DUE TO REDUNDANCY OF GALLERYVIEWCONTROLLER //////////////
+    
 //    if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
 //      let photoAction = UIAlertAction(title: "New Photo", style: UIAlertActionStyle.Default) { (action) -> Void in
 //        

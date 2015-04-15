@@ -28,34 +28,36 @@ class ParseService {
     })
   }
   
-  class func fetchImages(completionHandler: (data: [UIImage]?, error: String?) -> Void) {
-    var images = [UIImage]()
+  class func fetchImageFiles(completionHandler: (data: [PFObject]?, error: String?) -> Void) {
     let query = PFQuery(className: "PostImage")
-    
     query.findObjectsInBackgroundWithBlock {(data, error) -> Void in
       if error != nil {
-        println(error!.localizedDescription)
+        completionHandler(data: nil, error: "\(error!.description)")
       } else {
         if let pffiles = data as? [PFObject] {
-          for pfObject in pffiles {
-            if let imageFile = pfObject["image"] as? PFFile {
-              
-              imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
-                if error == nil {
-                  if let imageData = data  {
-                    if let photo = UIImage(data: imageData) {
-                      images.append(photo)
-                    }
-                  }
-                  completionHandler(data: images, error: nil)
-                } else {
-                  completionHandler(data: nil, error: "Unable to Fetch Image from Parse")
-                }
-              })
-            }
-          }
+          completionHandler(data: pffiles, error: nil)
         }
       }
     }
   }
+  
+  class func fetchImageFromPFObject(pfObject: PFObject, completionHandler: (image: UIImage?, error: String?) -> Void)  {
+    if let imageFile = pfObject["image"] as? PFFile {
+      imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+        if error == nil {
+          if let imageData = data  {
+            if let photo = UIImage(data: imageData) {
+              NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                completionHandler(image: photo, error: nil)
+              })
+            }
+          }
+        }
+        else {
+          completionHandler(image: nil, error: "Unable to Fetch Image from Parse")
+        }
+      })
+    }
+  }
+
 }
