@@ -48,6 +48,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("timelineCell", forIndexPath: indexPath) as! GalleryCollectionViewCell
+    cell.imageView.image = nil
     cell.tag++
     let tag = cell.tag
     ParseService.fetchImageFromPFObject(self.photoFileObjects[indexPath.row], completionHandler: { (image, error) -> Void in

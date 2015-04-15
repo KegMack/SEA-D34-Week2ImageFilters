@@ -45,6 +45,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier("galleryCell", forIndexPath: indexPath) as! GalleryCollectionViewCell
+    cell.imageView.image = nil
     cell.tag++
     let tag = cell.tag
     if let asset = self.result[indexPath.row] as? PHAsset {
